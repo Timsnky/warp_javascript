@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<body onload = "addStars(); setInterval('warpAnimation()', 0);" style="background-color:#000000">
+	<p>
+		<div id="stars" class="stars"></div>
+	</p>	
+	</body>
+	
+<script type="text/javascript">
+	/*This function initially creates 30 stars dynamically and positions them at the middle with them hidden.
+	 The Number of stars can be varied as desired but you have to also change the angle in the warpAnimation function*/
+	
+	function addStars()
+	{
+		var index = 0;
+		while(index < 30){
+			var starImage = document.createElement("img");
+			starImage.src = "Star5.jpg";
+			starImage.id = "star" + index;
+			starImage.style.position = "absolute";
+			starImage.style.left = window.innerHeight/2 + "px";
+			starImage.style.top = window.innerHeight/2 + "px";
+			starImage.style.visibility = "hidden"	;
+			starImage.height = "5";
+			starImage.width = "5";
+			document.getElementById("stars").appendChild(starImage);
+			index ++;
+		}		
+	}
+
+</script>
+
+<script type="text/javascript">
+	var index = 0;
+	/* This function handles the animation of the stars by varying their x & y position depending
+	on the angle using sine and cosine function.*/
+	function warpAnimation()
+	{
+		var star = document.getElementById("star"+ index);
+		var xPos = star.offsetLeft;
+		var yPos = star.offsetTop;		
+		var angle = (360 - (12 * (index +1))) * Math.PI / 180; //12 = 360 / Number of Stars created in previous funtion
+		var size = star.height;
+		window.alert
+		xPos += Math.cos(angle) * size/2;
+		yPos += Math.sin(angle) * size/2;
+		star.style.left = xPos	+ "px";
+		star.style.top = yPos + "px";
+		star.style.visibility = "visible";
+		star.height = size + 2;
+		star.width = size + 2; 
+		if (xPos < 10 || xPos > window.innerHeight || yPos < 10 || yPos > window.innerHeight){
+			star.style.left = window.innerHeight/2 + "px";
+			star.style.top = window.innerHeight/2 + "px";
+			star.height = 5;
+			star.width = 5;
+		}
+		index ++;
+		if(index == 30){ //30 = Number of stars created
+			index = 0;
+		}
+	}
+
+</script>
+</html>
